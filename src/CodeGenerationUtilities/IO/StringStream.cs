@@ -1,4 +1,6 @@
 ﻿using System;
+using System;
+using System.IO;
 
 namespace System.IO
 {
@@ -11,30 +13,6 @@ namespace System.IO
         public StringStream(string text) : base()
         {
             Write(text);
-        }
-
-        public StringStream(int capacity) : base(capacity)
-        {
-        }
-
-        public StringStream(byte[] buffer) : base(buffer)
-        {
-        }
-
-        public StringStream(byte[] buffer, bool writable) : base(buffer, writable)
-        {
-        }
-
-        public StringStream(byte[] buffer, int index, int count) : base(buffer, index, count)
-        {
-        }
-
-        public StringStream(byte[] buffer, int index, int count, bool writable) : base(buffer, index, count, writable)
-        {
-        }
-
-        public StringStream(byte[] buffer, int index, int count, bool writable, bool publiclyVisible) : base(buffer, index, count, writable, publiclyVisible)
-        {
         }
 
         public void Write(char value)
@@ -66,6 +44,8 @@ namespace System.IO
         }
 
         public new int Length => ToString().Length;
+
+
 
         public char this[int index]
         {

@@ -136,7 +136,7 @@ Copyright (c) Ollon, LLC. All rights reserved.
     <BuildNumber>0</BuildNumber>
     <RevisionNumber>0</RevisionNumber>
     <BuildVersion>1.0.0.0</BuildVersion>
-    <AssemblyBuildVersion Condition="'$(AssemblyBuildVersion)'==''">1.0.0.0</AssemblyBuildVersion>
+    <AssemblyBuildVersion Condition="'$(AssemblyBuildVersion)'==''">2.0.0.0</AssemblyBuildVersion>
   </PropertyGroup>
 
   <!--            -->

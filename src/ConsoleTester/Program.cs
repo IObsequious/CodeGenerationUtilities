@@ -3,6 +3,10 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.CodeDom;
+using System.CodeDom.CSharp;
+using System.Diagnostics;
+using System.Threading;
 
 namespace ConsoleTester
 {
@@ -11,24 +15,64 @@ namespace ConsoleTester
         public static void Main(string[] args)
         {
             ModeConCols();
-            
-            CodeStreamWriter writer = new CodeStreamWriter();
 
-            writer.WriteLine();
-            writer.WriteLine("public class C");
-            writer.OpenBlock();
-            writer.WriteLine("public C()");
-            writer.OpenBlock();
-            writer.CloseBlock();
-            writer.CloseBlock();
+            string text = CodeGenerator.GenerateCompileUnit(new CodeCompileUnit
+            {
+                Namespaces =
+                {
+                    new CodeNamespace("ExampleNamespace")
+                    {
+                        
+                        Imports =
+                        {
+                            new CodeNamespaceImport("System")
+                        },
+                        Types =
+                        {
+                            new CodeTypeDeclaration
+                            {
+                                Name = "ExampleClass",
+                                IsClass = true,
+                                IsPartial = true,
+                                BaseTypes =
+                                {   
+                                    new CodeTypeReference("CollectionBase"),
+                                    new CodeTypeReference(typeof(IDisposable))
+                                },
+                                TypeParameters =
+                                {
+                                    new CodeTypeParameter("TKey"),
+                                    new CodeTypeParameter("TValue")
+                                },
+                                Members =
+                                {
+                                    new CodeMemberProperty
+                                    {
+                                        Attributes = MemberAttributes.Public,
+                                        Type = new CodeTypeReference(typeof(string)),
+                                        Name = "Name",
+                                        HasGet = true,
+                                        HasSet = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                
+            });
 
-            writer.Close();
+            string temp = Path.GetTempFileName();
+            File.WriteAllText(temp, text);
+            Process p = Process.Start("notepad.exe", temp);
+            while (!p.HasExited)
+            {
+                Console.Write('.');
+                Thread.Sleep(2000);
+            }
+            File.Delete(temp);
 
-            string value = File.ReadAllText(writer.FilePath);
-
-            File.Delete(writer.FilePath);
-
-            PressAnyKey();
+            // PressAnyKey();
         }
         private static void PressAnyKey()
         {

@@ -16,20 +16,20 @@
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
     <OutputType>Library</OutputType>
-    <RootNamespace>CodeGenerationUtilities</RootNamespace>
+    <RootNamespace>System</RootNamespace>
     <AssemblyName>CodeGenerationUtilities</AssemblyName>
   </PropertyGroup>
 
   <ItemDefinitionGroup>
     <None>
       <Pack>true</Pack>
-      <PackagePath>src\IO</PackagePath>
+      <PackagePath>src\</PackagePath>
       <Visible>false</Visible>
     </None>
   </ItemDefinitionGroup>
   
   <ItemGroup>
-    <None Include="@(Compile)" />
+    <None Include="**\*.cs" />
     <None Include="$(MSBuildProjectFile)" />
   </ItemGroup>
 
